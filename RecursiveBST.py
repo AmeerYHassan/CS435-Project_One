@@ -103,16 +103,7 @@ class BST():
     def findMaxRec(self):
         self.inOrder()
         return(self.inOrderList[-1])
-
-def bstSort(arr):
-    sortedBST = BST()
-
-    for num in range(len(arr)):
-        sortedBST.insertRec(sortedBST.root, Node(arr[num]))
-    
-    sortedBST.inOrder(sortedBST.root)
-    return sortedBST.inOrderList
-
+"""
 currBST = BST()
 currBST.insertRec(5)
 currBST.insertRec(3)
@@ -142,3 +133,4 @@ print(currBST.inOrderList)
 currBST.deleteRec(5)
 currBST.inOrder()
 print(currBST.inOrderList)
+"""
