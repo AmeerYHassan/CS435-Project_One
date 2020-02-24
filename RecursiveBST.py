@@ -10,6 +10,7 @@ class BST():
         self.root = None
         self.inOrderList = []
     
+    # Set the root if the Tree is empty, else, find the spot and put the node in.
     def insertRec(self, value):
         if(self.root is None):
             self.root = Node(value)
@@ -68,6 +69,7 @@ class BST():
                 self.deleteRecHelper(self.root, nextBiggestVal)
                 currNode.value = nextBiggestVal
     
+    # Resets the inOrder list, does the inOrder traversal.
     def inOrder(self):
         self.inOrderList = []
         self.inOrderHelper(self.root)
@@ -78,6 +80,7 @@ class BST():
             self.inOrderList.append(currNode.value)
             self.inOrderHelper(currNode.right)
     
+    # Generate the inOrder traversal, check if it is in the list, return the value of the index after it.
     def findNextRec(self, value):
         self.inOrder()
         if value in self.inOrderList:
@@ -87,6 +90,7 @@ class BST():
             else:
                 return(self.inOrderList[0])
     
+    # Generate the inOrder traversal, check if it is in the list, return the value of the index before it.
     def findPrevRec(self, value):
         self.inOrder()
         if value in self.inOrderList:
@@ -95,42 +99,15 @@ class BST():
                 return(self.inOrderList[targetIdx])
             else:
                 return(self.inOrderList[-1])
+        else:
+            return None
     
+    # Generate the inOrder traversal, return the first element.
     def findMinRec(self):
         self.inOrder()
         return(self.inOrderList[0])
     
+    # Generate the inOrder traversal, return the last element.
     def findMaxRec(self):
         self.inOrder()
         return(self.inOrderList[-1])
-"""
-currBST = BST()
-currBST.insertRec(5)
-currBST.insertRec(3)
-currBST.insertRec(12)
-currBST.insertRec(54)
-currBST.insertRec(86)
-currBST.insertRec(35)
-currBST.insertRec(75)
-currBST.insertRec(32)
-currBST.insertRec(30)
-currBST.insertRec(31)
-currBST.insertRec(92)
-currBST.insertRec(83)
-currBST.insertRec(2)
-
-currBST.inOrder()
-print(currBST.inOrderList)
-
-currBST.deleteRec(86)
-currBST.inOrder()
-print(currBST.inOrderList)
-
-currBST.deleteRec(54)
-currBST.inOrder()
-print(currBST.inOrderList)
-
-currBST.deleteRec(5)
-currBST.inOrder()
-print(currBST.inOrderList)
-"""
