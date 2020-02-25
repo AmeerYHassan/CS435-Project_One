@@ -57,37 +57,53 @@ class BST():
                 continue
         return currNode
     
+    def deleteNoChildrenIter(self, currNode):
+        # If there are no children, make the parent point to None.
+        if (currNode.parent.right is currNode):
+                currNode.parent.right = None
+                currNode.parent = None
+        elif (currNode.parent.left is currNode):
+                currNode.parent.left = None
+                currNode.parent = None
+
+    def deleteOneChildIter(self, currNode):
+         # If there is a child, set the parent to point to the Node's children instead
+        # Of the node.
+        if (currNode.parent.left is currNode):
+            if(currNode.left is not None):
+                currNode.parent.left = currNode.left
+            else:
+                currNode.parent.left = currNode.right
+        else:
+            if(currNode.left is not None):
+                currNode.parent.right = currNode.left
+            else:
+                currNode.parent.right = currNode.right
+
+    def deleteTwoChildrenIter(self, currNode):
+        # If there are two nodes, replace the node with the next greatest.
+        nextBiggestNode = self.findNextIter(currNode.value)
+        self.deleteIter(nextBiggestNode)
+        currNode.value = nextBiggestNode
+        
     # Function that iteratively deletes nodes.
     def deleteIter (self, value):
         # Find the Node
         currNode = self.findNode(value)
         # Case One: No children.
-        # If there are no children, make the parent point to None.
         if (currNode.right is None and currNode.left is None):
-            if (currNode.parent.right is currNode):
-                currNode.parent.right = None
-            elif (currNode.parent.left is currNode):
-                currNode.parent.left = None
-            currNode.parent = None
+            self.deleteNoChildrenIter(currNode)
+            return
+
         # Case Two: One child
-        # If there is a child, set the parent to point to the Node's children instead
-        # Of the node.
-        elif (currNode.right is not None and currNode.left is None):
-            if (currNode.parent.right is currNode):
-                currNode.parent.right = currNode.right
-            elif (currNode.parent.left is currNode):
-                currNode.parent.left = currNode.right
-        elif (currNode.right is None and currNode.left is not None):
-            if (currNode.parent.right is currNode):
-                currNode.parent.right = currNode.left
-            elif (currNode.parent.left is currNode):
-                currNode.parent.left = currNode.left
+        if ((currNode.right is None and currNode.left is not None) or
+                (currNode.left is None and currNode.right is not None)):
+            self.deleteOneChildIter(currNode)
+            return
+
         # Case Three: Two children
-        # If there are two nodes, replace the node with the next greatest.
         elif (currNode.right is not None and currNode.left is not None):
-            nextBiggestNode = self.findNextIter(currNode.value)
-            self.deleteIter(nextBiggestNode)
-            currNode.value = nextBiggestNode
+            self.deleteTwoChildrenIter(currNode)
 
     # Find the next greatest node.
     def findNextIter (self, value):
