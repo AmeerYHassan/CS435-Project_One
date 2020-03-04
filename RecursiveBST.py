@@ -1,26 +1,27 @@
 class Node():
-    def __init__ (self, value):
+    def __init__(self, value):
         self.value = value
         self.right = None
         self.left = None
         self.parent = None
 
+
 class BST():
-    def __init__ (self):
+    def __init__(self):
         self.root = None
         self.inOrderList = []
         self.traverseCounter = 0
-    
+
     # Set the root if the Tree is empty, else, find the spot and put the node in.
     def insertRec(self, value):
-        if(self.root is None):
+        if (self.root is None):
             self.root = Node(value)
         else:
             self.insertRecHelper(self.root, value)
-    
+
     def insertRecHelper(self, currNode, value):
         if (value > currNode.value):
-            if(currNode.right is None):
+            if (currNode.right is None):
                 currNode.right = Node(value)
                 currNode.right.parent = currNode
             else:
@@ -33,7 +34,7 @@ class BST():
             else:
                 self.insertRecHelper(currNode.left, value)
                 self.traverseCounter += 1
-    
+
     def deleteRec(self, value):
         self.deleteRecHelper(self.root, value)
 
@@ -54,16 +55,17 @@ class BST():
                     currNode.parent = None
                     return
             # Case two: Node with one child
-            elif ((currNode.right is None and currNode.left is not None) or (currNode.left is None and currNode.right is not None)):
-                if(currNode.parent.left is currNode):
-                    if(currNode.left is not None):
+            elif ((currNode.right is None and currNode.left is not None) or (
+                    currNode.left is None and currNode.right is not None)):
+                if (currNode.parent.left is currNode):
+                    if (currNode.left is not None):
                         currNode.parent.left = currNode.left
-                    elif(currNode.right is not None):
+                    elif (currNode.right is not None):
                         currNode.parent.left = currNode.right
-                if(currNode.parent.right is currNode):
-                    if(currNode.left is not None):
+                if (currNode.parent.right is currNode):
+                    if (currNode.left is not None):
                         currNode.parent.right = currNode.left
-                    elif(currNode.right is not None):
+                    elif (currNode.right is not None):
                         currNode.parent.right = currNode.right
 
             # Case Three: Node with two children
@@ -71,46 +73,46 @@ class BST():
                 nextBiggestVal = self.findNextRec(value)
                 self.deleteRecHelper(self.root, nextBiggestVal)
                 currNode.value = nextBiggestVal
-    
+
     # Resets the inOrder list, does the inOrder traversal.
     def inOrder(self):
         self.inOrderList = []
         self.inOrderHelper(self.root)
-    
+
     def inOrderHelper(self, currNode):
         if currNode != None:
             self.inOrderHelper(currNode.left)
             self.inOrderList.append(currNode.value)
             self.inOrderHelper(currNode.right)
-    
+
     # Generate the inOrder traversal, check if it is in the list, return the value of the index after it.
     def findNextRec(self, value):
         self.inOrder()
         if value in self.inOrderList:
-            targetIdx = self.inOrderList.index(value)+1
+            targetIdx = self.inOrderList.index(value) + 1
             if (targetIdx >= 0):
-                return(self.inOrderList[targetIdx])
+                return (self.inOrderList[targetIdx])
             else:
-                return(self.inOrderList[0])
-    
+                return (self.inOrderList[0])
+
     # Generate the inOrder traversal, check if it is in the list, return the value of the index before it.
     def findPrevRec(self, value):
         self.inOrder()
         if value in self.inOrderList:
-            targetIdx = self.inOrderList.index(value)-1
+            targetIdx = self.inOrderList.index(value) - 1
             if (targetIdx <= len(self.inOrderList)):
-                return(self.inOrderList[targetIdx])
+                return (self.inOrderList[targetIdx])
             else:
-                return(self.inOrderList[-1])
+                return (self.inOrderList[-1])
         else:
             return None
-    
+
     # Generate the inOrder traversal, return the first element.
     def findMinRec(self):
         self.inOrder()
-        return(self.inOrderList[0])
-    
+        return (self.inOrderList[0])
+
     # Generate the inOrder traversal, return the last element.
     def findMaxRec(self):
         self.inOrder()
-        return(self.inOrderList[-1])
+        return (self.inOrderList[-1])

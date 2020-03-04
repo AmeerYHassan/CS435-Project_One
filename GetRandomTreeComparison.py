@@ -4,7 +4,7 @@ from IterativeAVL import *
 from ArraysOfInteger import *
 import time
 
-numElements = 20
+numElements = 10000
 randomList = getRandomArray(numElements)
 sortedList = getSortedArray(numElements)
 
