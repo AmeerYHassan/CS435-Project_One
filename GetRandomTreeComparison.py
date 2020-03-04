@@ -1,37 +1,65 @@
-from RecursiveBST import *
+import RecursiveBST as RBST
+import IterativeBST as IBST
 from IterativeAVL import *
 from ArraysOfInteger import *
 import time
 
-randomList = getRandomArray(20)
-sortedList = getSortedArray(20)
+numElements = 20
+randomList = getRandomArray(numElements)
+sortedList = getSortedArray(numElements)
 
+# Random Array Tree Population
 AVLTreeRandom = AVL()
-BSTreeRandom = BST()
+RecursiveBSTRandom = RBST.BST()
+IterativeBSTRandom = IBST.BST()
 
 AVLStart = time.time()
 for randomElem in randomList:
     AVLTreeRandom.insertIter(randomElem)
 AVLEnd = time.time()
 
-BSTStart = time.time()
+RecursiveBSTStart = time.time()
 for randomElem in randomList:
-    BSTreeRandom.insertRec(randomElem)
-BSTEnd = time.time()
+    RecursiveBSTRandom.insertRec(randomElem)
+RecursiveBSTEnd = time.time()
 
-print(f"Time to input 20 random elements:\n-----------------------------\nAVL Tree: {AVLEnd-AVLStart} seconds.\nAVL Tree Calls: {AVLTreeRandom.traverseCounter}\n-----------------------------\nRecursive BST: {BSTEnd-BSTStart} seconds.\nRecursive BST Calls: {BSTreeRandom.traverseCounter}\n\n")
+IterativeBSTStart = time.time()
+for randomElem in randomList:
+    IterativeBSTRandom.insertIter(randomElem)
+IterativeBSTEnd = time.time()
 
+print(f"Stats to input {numElements} random elements:")
+print(f"\tAVL Tree: {AVLEnd-AVLStart} seconds.")
+print(f"\tAVL Tree Calls: {AVLTreeRandom.traverseCounter}\n")
+print(f"\tRecursive BST: {RecursiveBSTEnd-RecursiveBSTStart} seconds.")
+print(f"\tRecursive BST Calls: {RecursiveBSTRandom.traverseCounter}\n")
+print(f"\tIterative BST: {IterativeBSTEnd-IterativeBSTStart} seconds.")
+print(f"\tIterative BST Calls: {IterativeBSTRandom.traverseCounter}\n")
+
+# Sorted Array Tree Population
 AVLTreeSorted = AVL()
-BSTreeSorted = BST()
+RecursiveBSTSorted = RBST.BST()
+IterativeBSTSorted = IBST.BST()
 
 AVLStart = time.time()
 for randomElem in randomList:
     AVLTreeSorted.insertIter(randomElem)
 AVLEnd = time.time()
 
-BSTStart = time.time()
+RecursiveBSTStart = time.time()
 for randomElem in randomList:
-    BSTreeSorted.insertRec(randomElem)
-BSTEnd = time.time()
+    RecursiveBSTSorted.insertRec(randomElem)
+RecursiveBSTEnd = time.time()
 
-print(f"Time to input 20 sorted elements:\n-----------------------------\nAVL Tree: {AVLEnd-AVLStart} seconds.\nAVL Tree Calls: {AVLTreeSorted.traverseCounter}\n-----------------------------\nRecursive BST: {BSTEnd-BSTStart} seconds. \nRecursive BST Calls: {BSTreeSorted.traverseCounter}")
+IterativeBSTStart = time.time()
+for randomElem in randomList:
+    IterativeBSTSorted.insertIter(randomElem)
+IterativeBSTEnd = time.time()
+
+print(f"Stats to input {numElements} sorted elements:")
+print(f"\tAVL Tree: {AVLEnd-AVLStart} seconds.")
+print(f"\tAVL Tree Calls: {AVLTreeSorted.traverseCounter}\n")
+print(f"\tRecursive BST: {RecursiveBSTEnd-RecursiveBSTStart} seconds.")
+print(f"\tRecursive BST Calls: {RecursiveBSTSorted.traverseCounter}\n")
+print(f"\tIterative BST: {IterativeBSTEnd-IterativeBSTStart} seconds.")
+print(f"\tIterative BST Calls: {IterativeBSTSorted.traverseCounter}\n")
