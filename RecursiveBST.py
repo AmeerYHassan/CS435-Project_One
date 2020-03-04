@@ -9,6 +9,7 @@ class BST():
     def __init__ (self):
         self.root = None
         self.inOrderList = []
+        self.traverseCounter = 0
     
     # Set the root if the Tree is empty, else, find the spot and put the node in.
     def insertRec(self, value):
@@ -24,12 +25,14 @@ class BST():
                 currNode.right.parent = currNode
             else:
                 self.insertRecHelper(currNode.right, value)
+                self.traverseCounter += 1
         elif (value < currNode.value):
             if (currNode.left is None):
                 currNode.left = Node(value)
                 currNode.left.parent = currNode
             else:
                 self.insertRecHelper(currNode.left, value)
+                self.traverseCounter += 1
     
     def deleteRec(self, value):
         self.deleteRecHelper(self.root, value)
